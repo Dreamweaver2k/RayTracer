@@ -1,0 +1,174 @@
+<html>
+<head>
+    <title> COS426 Assignment 3 Rendering &mdash; Ray Tracer &mdash; Writeup</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
+</head>
+
+<body>
+<script src="js/student.js"> </script>
+<script src="coursejs/writeup.js"> </script>
+<div class="top">
+<div class="main_div">
+
+<h1> <div class=assignment>COS426 Assignment 3</div> Ray Tracer &mdash; Writeup</h1>
+<h2>Switch to: <a href='index.html'>Interactive Editor</a></h2>
+<br>
+<div id='collaboration'>
+    <div>
+    Collaboration Statement:
+    </div>
+        <br>
+    <div>
+        <em>
+            Under penalty of academic dishonesty (as outlined in RRR)
+            my digital signature below verifies that the following is true:
+            <ul>
+                <p>
+                    That all images in this writeup were generated directly by my solution code
+                    or provided by the course staff (exception: art contest submissions
+                    may pass through intermediary software like GIMP)
+                </p>
+                <p>
+                    That no other student has viewed my writeup explanations
+                    or my writeup images
+                </p>
+                <p>
+                    That my solution code is my own work; particularly that
+                    my solution was not copied from any other
+                    student's solution code, and that no other student
+                    copied their solution directly code from me
+                </p>
+                <p>
+                    That I did not discuss assignment specifics or view
+                    the solution code of any other student besides that of my (optional) partner
+                </p>
+                <p>
+                    That I have followed all other course collaboration
+                    and course plagiarism policies as written on the course website.
+                </p>
+            </ul>
+        </em>
+        <p>
+            <strong>
+                Chandler Ault  (cjault)
+            </strong>
+        </p>
+
+        <p>
+            Collaborated with: Will Drury (wdrury)
+        </p>
+        <br>
+    </div>
+</div>
+<div class='selectable'>
+<h2 id='student'></h2>
+
+<ul>
+<li>(1.0) <a href='#TraceRay'>Trace Ray and Calculate Color</a></li>
+<li>(2.0) <a href='#Triangle'>Triangle</a></li>
+<li>(2.0) <a href='#Sphere'>Sphere</a></li>
+<li>(2.5) <a href='#Box'>Box</a></li>
+<li>(2.0) <a href='#Cylinder'>Cylinder</a></li>
+<li>(3.0) <a href='#Cone'>Cone</a></li>
+<li>(1.0) <a href='#Shadows'>Shadows</a></li>
+<li>(2.0) <a href='#Transmission'>Transmission</a></li>
+<li>(1.0) <a href='#Checkerboard'>Checkerboard</a></li>
+<li>(1.5) <a href='#Phong+material'>Phong material</a></li>
+<li>(1.5) <a href='#Special+material'>Special material</a></li>
+<li>(1.0) <a href='#Scene'>Custom Scene</a></li>
+<li>(1.0) <a href='#Art+Contest'>Art Contest</a></li>
+</ul></div>
+
+<p><hr><p><a name='Trace Ray and Calculate Color'></a><h2>TraceRay</h2><p><hr><p>
+<p>For the first part of the assignment, I followed the provided
+instructions to complete the <code>traceRay</code> and <code>calculateColor</code>. For <code>calculateColor</code>, I iterated through all light sources and retrieved
+the light contribution of each. For <code>traceRay</code>, I determined whether the ray interacted with anything in the scene. If it did, I would retrieve the light contributions and update the 
+ray parameters as layed out in the instructions.</p>
+
+<p><hr><p><a name='Triangle'></a><h2>Triangle</h2><p><hr><p>
+<p>
+    To get the d parameter of the plane, I would multiple the norm (which is the cross product of two edges of the triangle) with any point t on the triangle. I would then 
+    pass this value to <code>indIntersectionWithPlane<code> to get the intersection position and length from the origin of the array. Following the algebraic checks, I ensured that 
+    the point was within the triangle. If it was, I updated the Intersection object and returned the length. If not, I returned infinity.
+</p>
+<br>
+<img src=results/mesh.png>
+
+<p><hr><p><a name='Sphere'></a><h2>Sphere</h2><p><hr><p>
+<p>
+    For this function, I nearly followed the lecture notes step by step to find the two points that intersect the sphere along the ray. Once these two points were found, I returned the distance of the nearest point and updated
+    the intersection object to have the position equal to the interesection of the closer point as well as calculated the normal by normalizing the difference between the point and the center of the sphere.
+</p>
+
+<p><hr><p><a name='Box'></a><h2>Box</h2><p><hr><p>
+<p>
+    For this function, I created an auxiliary function to check whether a point was on the surface of the box. If not, return infinity. If it was, I kept track of the best (closest) intersection and only updated the intersection parameter once I knew which of the six sides
+    was the first to be intersected by the ray. I would also calculate the normal of each face by taking the cross product of two edges on the face, but I now realize that since the box is axis aligned, the normals can easily be calculate since they point a direction of an axis.
+</p>
+
+<p><hr><p><a name='Cylinder'></a><h2>Cylinder</h2><p><hr><p>
+<p>
+    For cylinder intersection, I followed the math of the assignment description very closely and solved the quadratic equation to find the intersecting points. I then found which point was closest (and non-negative). Finally, I calculated the normal which is just the normalized difference
+    between the center and the point with the y value set to 0 (assuming y-axis aligned). Finally, for disc intersection, I had a nuanced approach. I took the dot product of the norm and the center of the disc to calculate d of the plane. I then used the intersect plane function from earlier to 
+    find the point intersecting the plane of the disc. If the point was within the circular bounds of the disc, I returned the values. If not, I returned infinity.
+</p>
+
+<p><hr><p><a name='Cone'></a><h2>Cone</h2><p><hr><p>
+<p> 
+    For cone, I used the same disc intersection outlined above. Once again, I followed the math of the assignment description closely. The most difficult part of this function was calculating the normal of an open cone surface. Ultimately, I determined the normal is the same as the cylinder, but with
+    the y value set to radius/height of the cone.
+</p>
+<p><hr><p><a name='Shadows'></a><h2>Shadows</h2><p><hr><p>
+<p>
+    For <code>pointInShadow</code> I simply used intersect ray with scene. If the distance to the intersection was the same as the length of the light vector, then it is not in a shadow. Otherwise, if these values are not
+    equal, it is in a shadow since the ray does not reach it.
+</p>
+<p><hr><p><a name='Soft+shadows'></a><h2>Soft shadows</h2><p><hr><p>
+(Your description of your implementation of Soft shadows goes here...)
+
+<p><hr><p><a name='Transmission'></a><h2>Transmission</h2><p><hr><p>
+<p>
+For transmission, I simply used Snell's law to calculate the refraction. I took care to kill the ray if total internal reflectance occurred in an object.
+</p>
+
+<p><hr><p><a name='Checkerboard'></a><h2>Checkerboard</h2><p><hr><p>
+<p>
+    For Checkerboard, I added the floor of the x, y, and z positions together and divided by the size of the checkerboar. I chose the size to be 10. I then took the mod of the value with two. If the mod was 0, set the location to white. Else, set the location to black.
+</p>
+
+<p><hr><p><a name='Phong+material'></a><h2>Phong material</h2><p><hr><p>
+<p>
+    I followed the equation detailed in lecture and wikipedia. However, I divided the light intensity by the attenuation to factor in the distance.
+</p>
+
+
+<p><hr><p><a name='Special+material'></a><h2>Special material</h2><p><hr><p>
+I attempted to implement perlin noise for my special effect. That being said, it appears to only work for one quadrant. I closely followed wikipedia which was linked.
+<br>
+<img src=results/scene.png>
+<br>
+<img src=results/perlin.png>
+
+
+<p><hr><p><a name='Scene'></a><h2>Custom Scene</h2><p><hr><p>
+My scene is called nostra-snowman and his crystal ball in the halls of infinite horror. I modelled a snowman and out a crystal ball on a table in front of him. I also set some of the walls to be mirrors.
+<br>
+<img src=results/nostasnowman.png>
+
+<p><hr><p><a name='Animation'></a><h2>Animation</h2><p><hr><p>
+(Your description of your implementation of Animation goes here...)
+
+<p><hr><p><a name='Technical+Extensions'></a><h2>Technical Extensions</h2><p><hr><p>
+(Your description of your implementation of Technical Extensions goes here...)
+
+<p><hr><p><a name='Art+Contest'></a><h2>Art Contest</h2><p><hr><p>
+Remember to appropriately label your submission! If you are submitting a google
+drive link to a movie or animation, give the tag an id that matches the format we
+for your labeled art project images.
+I am submitting my scene to the art contest. As detailed above, I made a little scene of a snowman with a crystal ball.
+<br>
+<img src=results/nostasnowman.png>
+</div>
+</div>
+</body>
+</html>

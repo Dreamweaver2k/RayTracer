@@ -1,0 +1,217 @@
+{"objects": [
+    {
+        "comment": "// the back of the cornell box",
+        "type": "plane",
+        "normal": [0, 0, 1],
+        "dist": 40,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.2, 0.2, 0.2],
+            "shininess": 1000,
+            "specular": [1, 1, 1],
+            "reflectivity": 0.8,
+            "reflectType": "MIRRORREFLECT"
+        }
+    },
+    {
+        "comment": "// the front of the cornell box",
+        "type": "plane",
+        "normal": [0, 0, -1],
+        "dist": 40,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.2, 0.2, 0.2],
+            "shininess": 1000,
+            "specular": [1, 1, 1],
+            "reflectivity": 0.8,
+            "reflectType": "MIRRORREFLECT"
+        }
+    },
+    {
+        "comment": "// the right of the cornell box",
+        "type": "plane",
+        "normal": [1, 0, 0],
+        "dist": 40,
+        "material": {
+            "color": [0.1, 0.1, 0.6]
+        }
+    },
+    {
+        "comment": "// the left of the cornell box",
+        "type": "plane",
+        "normal": [-1, 0, 0],
+        "dist": 40,
+        "material": {
+            "color": [0.6, 0.1, 0.1]
+        }
+    },
+    {
+        "comment": "// the top of the cornell box",
+        "type": "plane",
+        "normal": [0, 1, 0],
+        "dist": 35,
+        "material": {
+            "color": [0.3, 0.3, 0.3]
+        }
+    },
+    {
+        "comment": "// the bottom of the cornell box",
+        "type": "plane",
+        "normal": [0, -1, 0],
+        "dist": 30,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.2, 0.2, 0.2],
+            "shininess": 1000,
+            "specular": [1, 1, 1],
+            "reflectivity": 0.8,
+            "reflectType": "MIRRORREFLECT",
+            "special": "CHECKERBOARD"
+        }
+    },
+    {
+        "comment": "// the matt sphere",
+        "type": "sphere",
+        "center": [-4, -25, 20],
+        "radius": 10,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.8, 0.8, 0.8],
+            "shininess": 200,
+            "specular": [0.8, 0.8, 0.8]
+        }
+    },
+    {
+        "comment": "// the matt sphere",
+        "type": "sphere",
+        "center": [-4, -10, 20],
+        "radius": 7.5,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.8, 0.8, 0.8],
+            "shininess": 200,
+            "specular": [0.8, 0.8, 0.8]
+        }
+    },
+    {
+        "comment": "// the matt sphere",
+        "type": "sphere",
+        "center": [-4, 0, 20],
+        "radius": 4,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.8, 0.8, 0.8],
+            "shininess": 200,
+            "specular": [0.8, 0.8, 0.8]
+        }
+    },
+    {
+        "comment": "// the mirror sphere (for reflection)",
+        "type": "sphere",
+        "center": [-6, 0.5, 17],
+        "radius": 0.75,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.2, 0.2, 0.2],
+            "shininess": 1000,
+            "specular": [1, 1, 1],
+            "reflectivity": 0.8,
+            "reflectType": "MIRRORREFLECT"
+        }
+    },
+    {
+        "comment": "// the mirror sphere (for reflection)",
+        "type": "sphere",
+        "center": [-2, 0.5, 17],
+        "radius": 0.75,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.2, 0.2, 0.2],
+            "shininess": 1000,
+            "specular": [1, 1, 1],
+            "reflectivity": 0.8,
+            "reflectType": "MIRRORREFLECT"
+        }
+    },
+    {
+        "comment": "// the mirror sphere (for reflection)",
+        "type": "sphere",
+        "center": [-4, 0.3, 16],
+        "radius": 0.75,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [1, 0.65, 0],
+            "shininess": 1000,
+            "specular": [1, 1, 1]
+        }
+    },
+    
+    {
+        "comment": "// the glass sphere (for refraction)",
+        "type": "sphere",
+        "center": [-3, -7.5, 5],
+        "radius": 3,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.2, 0.4, 1],
+            "shininess": 1000,
+            "specular": [1, 1, 1],
+            "reflectivity": 1,
+            "reflectType": "GLASSREFLECT"
+        }
+    },
+
+    
+    {
+
+        "comment": "// the cone",
+        "type": "cone",
+        "topCenter": [-4, 7, 20],
+        "bottomCenter": [-4, 3.2, 20],
+        "radius": 5,
+        "material": {
+            "type": "PHONGMATERIAL",
+            "color": [0.2, 0.4, 0.5],
+            "shininess": 200,
+            "specular": [0.8, 0.8, 0.8],
+            "reflectType": "NONEREFLECT"
+        }
+    },
+    {
+        "type": "box",
+        "minCorner": [-8, -30, 0],
+        "maxCorner": [2, -10, 10],
+        "material": {
+            "color": [0.1, 0, 0]
+        }
+    }
+
+],
+
+"lights": [
+    {
+        "pos": [-20, 20, 10],
+        "color": [1, 1, 1],
+        "intensity": 50,
+        "attenuate": 1.5
+    },
+    {
+        "pos": [20, 20, 10],
+        "color": [1, 1, 1],
+        "intensity": 30,
+        "attenuate": 2
+    },
+    {
+        "pos": [-10, 20, -20],
+        "color": [1, 1, 1],
+        "intensity": 30,
+        "attenuate": 1
+    },
+    {
+        "pos": [10, 20, -20],
+        "color": [1, 1, 1],
+        "intensity": 20,
+        "attenuate": 1
+    }
+]
+}
